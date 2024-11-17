@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wanderlust</title>
-</head>
+<% layout('./layouts/boilerplate.ejs') -%>
 <body>
     <h3>your selected list detail :</h3>
     <ul>
@@ -14,5 +8,5 @@
         <li><%= list.location %></li>
         <li><%= list.country %></li>
     </ul>
+    <a href="/listings/<%= list._id %>/edit"><button>Edit this list</button></a>
 </body>
-</html>
