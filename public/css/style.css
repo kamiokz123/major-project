@@ -1,3 +1,58 @@
-body{
-    background-color: aqua;
+
+.navbar {
+    background-color: white !important;
+    color: #2222;
+    height: 5rem;
+}
+
+h3{
+    text-align: center;
+}
+.fa-compass{
+    color: rgb(245, 54, 33);
+    font-size: 2rem;
+}
+img{
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+footer{
+    background-color: #ebebeb;
+}
+.f-info{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    gap: 10px;
+}
+
+.f-info-social i{
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.f-info-links a{
+    text-decoration: none;
+    color: black;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+
+.row{
+    padding: 10px;
+}
+
+.card{
+}
+
+.card-link{
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 0px !important;
+    margin: 17px;
 }

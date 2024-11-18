@@ -1,13 +1,34 @@
 <% layout('./layouts/boilerplate.ejs') -%>
-<body>
-    <h3>listing will show here</h3>
-    <ul>
-        <% for(listing of allList){ %>
-            <li>
-                <a href="/listings/<%= listing._id %>">
-                    <%= listing.title %>
+
+    <body>
+        <h3>listing will show here</h3>
+        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
+            <% for(listing of allList){ %>
+                <a href="/listings/<%= listing._id %>" class="card-link col" style="width: 19rem;">
+                    <div class="card" style="width: 100%;" >
+                        <img src="<%= listing.image.url %>" style="height: 18rem;" class="card-img-top"
+                            alt="<%= listing.image.filename %>">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b>
+                                    <%= listing.title %>
+                                </b> <br>
+                                &#8360; <%= listing.price.toLocaleString('ur-PK') %>/ night
+                            </p>
+                        </div>
+
+                    </div>
                 </a>
-            </li>
-            <% } %>
-    </ul>
-</body>
+                <% } %>
+        </div>
+
+        <!-- <ul>
+            <% for(listing of allList){ %>
+                <li>
+                    <a href="/listings/<%= listing._id %>">
+                        <%= listing.title %>
+                    </a>
+                </li>
+                <% } %>
+        </ul> -->
+    </body>
