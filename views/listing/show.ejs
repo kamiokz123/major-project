@@ -1,12 +1,36 @@
 <% layout('./layouts/boilerplate.ejs') -%>
-<body>
-    <h3>your selected list detail :</h3>
-    <ul>
-        <li><%= list.title %></li>
-        <li><%= list.description %></li>
-        <li>&#8360; <%= list.price.toLocaleString('ur-PK') %></li>
-        <li><%= list.location %></li>
-        <li><%= list.country %></li>
-    </ul>
-    <a href="/listings/<%= list._id %>/edit"><button>Edit this list</button></a>
-</body>
+    <div class="row">
+        <div class="col-8 offset-2 mt-1">
+
+            <h3>selected list detail :</h3>
+            <br>
+
+            <div class="card show-card " style="width: 100%;">
+                <img src="<%= list.image.url %>" class="card-img-top show-img" alt="<%= list.image.filename %>">
+                <div class="card-body">
+                  <p class="card-text"> <b><%= list.title %> </b></p>
+                </div>
+              </div>
+            <ul>
+                <li>
+                    <%= list.description %>
+                </li>
+                <li>&#8360; <%= list.price.toLocaleString('ur-PK') %>
+                </li>
+                <li>
+                    <%= list.location %>
+                </li>
+                <li>
+                    <%= list.country %>
+                </li>
+            </ul>
+            <div class="show-btns-div">
+                <a href="/listings/<%= list._id %>/edit"><button class="btn btn-dark">Edit</button></a>
+                <form method="post" action="/listings/<%= list._id %>?_method=DELETE">
+                    <button class="btn bt">Delete</button>
+                </form>
+            </div>
+            <br><br>
+
+        </div>
+    </div>

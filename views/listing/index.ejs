@@ -1,10 +1,10 @@
 <% layout('./layouts/boilerplate.ejs') -%>
 
-    <body>
-        <h3>listing will show here</h3>
-        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
+        <br>
+        <h3>All listings </h3>
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-1">
             <% for(listing of allList){ %>
-                <a href="/listings/<%= listing._id %>" class="card-link col" style="width: 19rem;">
+                <a href="/listings/<%= listing._id %>" class="card-link col" style="width: 18rem;">
                     <div class="card" style="width: 100%;" >
                         <img src="<%= listing.image.url %>" style="height: 18rem;" class="card-img-top"
                             alt="<%= listing.image.filename %>">
@@ -22,13 +22,4 @@
                 <% } %>
         </div>
 
-        <!-- <ul>
-            <% for(listing of allList){ %>
-                <li>
-                    <a href="/listings/<%= listing._id %>">
-                        <%= listing.title %>
-                    </a>
-                </li>
-                <% } %>
-        </ul> -->
-    </body>
+        
