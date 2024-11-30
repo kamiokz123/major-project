@@ -1,15 +1,8 @@
-body{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+
 .navbar {
     background-color: white !important;
     color: #2222;
     height: 5rem;
-}
-.container{
-    flex: 1 !important;
 }
 
 h3{
@@ -50,18 +43,50 @@ footer{
     text-decoration: underline;
 }
 
-.row{
-    padding: 10px;
+.body-div{
+    padding: 1rem;
+    max-height: 100%;
+    min-height: 100vh;
 }
 
-.card{
+#navbarNavAltMarkup{
+    background-color: white !important;
+    text-align: center;
+    padding: 1rem;
+}
+
+.card-holder{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    min-height: 100vh !important;
+    gap: 20px;
 }
 
 .card-link{
-    text-decoration: none;
+    text-decoration: none !important;
+    color: black;
     padding: 0px !important;
-    margin: 17px;
+    width: 16rem !important;
+    height: 21rem !important;
+    border-radius: 1rem;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.244);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.066) 5px 5px;
+}
+.list-card-img{
+    width:100% !important;
+    height: 14rem;
+}
+
+.list-card{
+    border: none;
+}
+.card-body{
+    padding: 10px !important;
 }
 
 .card-link:hover {
