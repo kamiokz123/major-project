@@ -2,15 +2,16 @@
     <div class="row">
         <div class="col-8 offset-2 mt-1">
 
-            <h3>selected list detail :</h3>
+            <h3><b>
+                    <%= list.title %>
+                </b></h3>
             <br>
 
             <div class="card show-card " style="width: 100%;">
                 <img src="<%= list.image.url %>" class="card-img-top show-img" alt="<%= list.image.filename %>">
                 <div class="card-body">
-                  <p class="card-text"> <b><%= list.title %> </b></p>
                 </div>
-              </div>
+            </div>
             <ul>
                 <li>
                     <%= list.description %>
@@ -31,6 +32,36 @@
                 </form>
             </div>
             <br><br>
-
+            <hr>
+            <div class="review-form">
+                <h5>leave rating :</h5>
+                <br>
+                <form action="/listings/<%= list._id %>/reviews" novalidate class="needs-validation" method="post">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="range" min="1" max="5" class="form-range" name="review[rating]">
+                    <label for="comment" class="form-label">Comment</label>
+                    <textarea required id="comment" class="form-control" name="review[comment]"></textarea>
+                    <div class="invalid-feedback">please write something in comment</div>
+                     <br>
+                    <button class="btn btn-dark">Submit</button>
+                </form>
+                <hr>
+                <h5>All reviews</h5>
+                <div class="review-holder">
+                    <% for(review of list.reviews){ %>
+                        <div class="card review-card" >
+                            <div class="card-body">
+                              <h5 class="card-title">john sin</h5>
+                              <p class="card-text"><%= review.comment %></p>  
+                              <p class="card-text">rating <%= review.rating %></p>
+                            </div>
+                            <form  action="/listings/<%= list._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                                <button type="submit" class="btn bt">delete</button>
+                            </form>
+                          </div>
+                    <% }; %>
+                </div>
+            </div>
         </div>
+
     </div>

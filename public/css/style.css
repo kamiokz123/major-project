@@ -1,4 +1,8 @@
-
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
 .navbar {
     background-color: white !important;
     color: #2222;
@@ -97,7 +101,6 @@ footer{
   .bt{
     background-color:  rgb(245, 54, 33) !important;
     color: white !important;
-
   }
 
   .show-btns-div{
@@ -107,9 +110,29 @@ footer{
 
   .show-card{
     border: none !important;
+    
   }
 
   .show-img{
     width: 100%;
     height: 40vh !important;
+  }
+
+  .review-holder{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  .review-card{
+    padding: 5px;
+    display: flex !important;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 13rem !important;
+    max-width: 15rem !important;
   }
