@@ -6,9 +6,8 @@ const path = require("path");
 let methodOverride = require('method-override');
 const ExpressError = require("./utils/ExpressError.js");
 const listingRouter = require("./routers/listing.js");
-const reviewRouter = require("./routers/review.js")
-
-
+const reviewRouter = require("./routers/review.js");
+const cookieParser = require("cookie-parser");
 
 
 app.set('view engine', 'ejs');
@@ -16,14 +15,12 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Set the 'public' folder as the directory for serving static files
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 // use ejs-locals for all ejs templates:
 app.engine('ejs', engine);
-
-
+app.use(cookieParser("secrete"));
 
 
 main().then(() => {
@@ -37,10 +34,27 @@ async function main() {
 }
 
 
+app.get("/get-cookie",(req,res)=>{
+    res.cookie("name","kamran");
+    res.send("cookie sent");
+});
 
+app.get("/get-sign-cookie",(req,res)=>{
+    console.log("normal : ",req.cookies);
+    console.log("signed : ",req.signedCookies);
+    res.send("recieved cookie");
+});
+
+
+app.get("/send-sign-cookie",(req,res)=>{
+    res.cookie("made-in","india",{signed:true});
+    res.send("signed cookie sent");
+});
 
 app.get("/", (req, res) => {
-    res.send("root page");
+    const {name = "anonymous"} = req.cookies;
+    console.log(req.cookies);
+    res.send("hi : "+name);
 });
 
 // listing routes
