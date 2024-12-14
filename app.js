@@ -8,6 +8,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const listingRouter = require("./routers/listing.js");
 const reviewRouter = require("./routers/review.js");
 const cookieParser = require("cookie-parser");
+const expressSession = require("express-session");
 
 
 app.set('view engine', 'ejs');
@@ -17,10 +18,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(expressSession({secret:"supersecrete"}));
 
 // use ejs-locals for all ejs templates:
 app.engine('ejs', engine);
-app.use(cookieParser("secrete"));
 
 
 main().then(() => {
@@ -34,27 +35,14 @@ async function main() {
 }
 
 
-app.get("/get-cookie",(req,res)=>{
-    res.cookie("name","kamran");
-    res.send("cookie sent");
-});
-
-app.get("/get-sign-cookie",(req,res)=>{
-    console.log("normal : ",req.cookies);
-    console.log("signed : ",req.signedCookies);
-    res.send("recieved cookie");
-});
-
-
-app.get("/send-sign-cookie",(req,res)=>{
-    res.cookie("made-in","india",{signed:true});
-    res.send("signed cookie sent");
-});
 
 app.get("/", (req, res) => {
-    const {name = "anonymous"} = req.cookies;
-    console.log(req.cookies);
-    res.send("hi : "+name);
+    if (req.session.count) {
+        req.session.count++;
+    }else{
+        req.session.count = 1;
+    }
+    res.send("hi : "+req.session.count);
 });
 
 // listing routes
