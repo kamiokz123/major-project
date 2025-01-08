@@ -115,7 +115,8 @@ footer{
 
   .show-img{
     width: 100%;
-    height: 40vh !important;
+    height: 50vh !important;
+    object-fit: contain !important;
   }
 
   .review-holder{

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { type, min, max } = require("../schema");
+const { ref } = require("joi");
 const Schema = mongoose.Schema;
 
 const reviewSchema = Schema({
@@ -13,6 +14,10 @@ const reviewSchema = Schema({
         type : Date ,
         default : Date.now()
         
+    },
+    author: {
+        type : Schema.Types.ObjectId,
+        ref: "User"
     }
 });
 

@@ -2,13 +2,12 @@
     <div class="row">
         <div class="col-8 offset-2 mt-1">
             <h3>Edit list</h3>
-            <form class="needs-validation" action="/listings/<%= list._id %>?_method=PUT" method="post" novalidate>
+            <form class="needs-validation" action="/listings/<%= list._id %>?_method=PUT"  method="post" enctype="multipart/form-data" novalidate>
 
                 <div class="mb-2">
                     <label for="title" class="form-label">Title :</label>
                     <input name="listing[title]" value="<%= list.title %>" class="form-control" type="text" required>
                     <div class="invalid-feedback">enter valid title</div>
-
                 </div>
 
                 <div class="mb-2">
@@ -18,9 +17,19 @@
                 </div>
 
                 <div class="mb-2">
-                    <label for="image" class="form-label">Image :</label>
-                    <input name="listing[image]" value="<%= list.image.url %>" class="form-control" type="text"
-                        required>
+                    <label for="imagePreview" class="form-label">original Image:</label> <br>
+                    <% console.log("in ejs",list); %>
+                    <% if (list.image && list.image.url) { %>
+                        <img src="<%= list.image.url.replace('/upload/', '/upload/w_400,h_300,c_fill,q_auto,f_auto/') %>"
+                             alt="Listing Image" 
+                             class="img-thumbnail" 
+                             style="max-width: 300px;">
+                    <% } %>                   
+                </div>
+
+                <div class="mb-2">
+                    <label for="image" class="form-label">Upload new Image:</label>
+                    <input name="listing[image]" class="form-control" type="file" >
                 </div>
 
                 <div class="mb-2">
