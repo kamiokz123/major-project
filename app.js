@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV != "production" ){
+if (process.env.NODE_ENV != "production") {
     require('dotenv').config()
 }
 
@@ -13,6 +13,7 @@ const listingRouter = require("./routers/listing.js");
 const reviewRouter = require("./routers/review.js");
 const userRouter = require("./routers/user.js")
 const cookieParser = require("cookie-parser");
+const MongoStore = require('connect-mongo');
 const expressSession = require("express-session");
 const flash = require("connect-flash");
 // requires the model with Passport-Local Mongoose plugged in
@@ -20,6 +21,7 @@ const User = require('./models/user.js');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+const dbUrl = process.env.ATLAS_URL;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -28,11 +30,25 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+        secret: "supersecrete"
+    },
+    touchAfter: 24 * 3600
+})
+
+store.on('error', (error) => {
+    console.error('Error in MongoDB session store:', error);
+});
+
 app.use(expressSession({
-    secret:"supersecrete",
-    resave:false,
-    saveUninitialized:true,
-    cookie:{
+    store,
+    secret: "supersecrete",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true
@@ -53,6 +69,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
 main().then(() => {
     console.log("connected to db");
 }).catch((err) => {
@@ -60,7 +77,7 @@ main().then(() => {
 });
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+    await mongoose.connect(dbUrl);
 }
 
 
@@ -75,21 +92,21 @@ async function main() {
 //     res.send(newUser);
 // });
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");    
-    res.locals.currUser = req.user;    
+    res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
     next();
 })
 
 // listing routes
-app.use("/listings",listingRouter);
+app.use("/listings", listingRouter);
 
 // review routes
-app.use("/listings/:id/reviews",reviewRouter);
+app.use("/listings/:id/reviews", reviewRouter);
 
 // user routes
-app.use("/",userRouter);
+app.use("/", userRouter);
 
 // error handling middlewares
 app.all("*", (req, res, next) => {
