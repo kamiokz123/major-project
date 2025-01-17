@@ -34,7 +34,7 @@ app.use(methodOverride('_method'));
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-        secret: "supersecrete"
+        secret: process.env.SECRETE
     },
     touchAfter: 24 * 3600
 })
@@ -45,7 +45,7 @@ store.on('error', (error) => {
 
 app.use(expressSession({
     store,
-    secret: "supersecrete",
+    secret: process.env.SECRETE,
     resave: false,
     saveUninitialized: true,
     cookie: {
