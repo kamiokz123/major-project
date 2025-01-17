@@ -101,9 +101,9 @@ app.use((req, res, next) => {
 
 app.get("/",(req,res)=>{
     if (req.user) {
-        res.redirect("./listing/index.ejs")
+        res.redirect("/listings")
     }else{
-        res.redirect("./user/login.ejs")
+        res.redirect("/login")
     }
 });
 
