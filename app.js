@@ -99,6 +99,14 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get("/",(req,res)=>{
+    if (req.user) {
+        res.redirect("./listing/index.ejs")
+    }else{
+        res.redirect("./user/login.ejs")
+    }
+});
+
 // listing routes
 app.use("/listings", listingRouter);
 
